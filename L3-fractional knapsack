@@ -1,0 +1,31 @@
+struct Item {
+     int value;
+     int weight;
+};
+
+bool comp(Item a ,Item b){
+    return (double)a.value/a.weight >= (double)b.value/b.weight;
+}
+
+class Solution {
+  public:
+    double fractionalKnapsack(vector<int>& val, vector<int>& wt, int capacity) {
+        int n= wt.size();
+        vector<Item>pairs(n);
+        for(int i=0;i<n;i++){
+            pairs[i].value = val[i];
+            pairs[i].weight = wt[i];
+        }
+        double totval =0;
+        sort(pairs.begin(),pairs.end(),comp);
+        for(int i=0;i<n;i++){
+            if(pairs[i].weight <= capacity){
+                capacity-=pairs[i].weight;
+                totval+=pairs[i].value;
+            }
+            else { totval+=((double)pairs[i].value/pairs[i].weight)*capacity;
+                    break;}
+        }
+       return totval; 
+    }
+};
