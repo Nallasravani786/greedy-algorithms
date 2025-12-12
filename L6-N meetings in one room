@@ -1,0 +1,33 @@
+struct meet{
+     int stime;
+     int etime;
+};
+
+bool comp(meet a, meet b){
+    return a.etime < b.etime ;
+}
+
+class Solution {
+  public:
+    // Function to find the maximum number of meetings that can
+    // be performed in a meeting room.
+    int maxMeetings(vector<int>& start, vector<int>& end) {
+       int n = start.size();
+       vector<meet>arr(n);
+       for(int i=0;i<n;i++){
+           arr[i].stime = start[i];
+           arr[i].etime = end[i];
+       }
+       int cnt =1;
+       sort(arr.begin(),arr.end(),comp);
+       int endtime=arr[0].etime;
+       for(int i=1;i<n;i++){
+           if(arr[i].stime > endtime){
+               cnt+=1;
+               endtime = arr[i].etime;
+           }
+       }
+       return cnt;
+        
+    }
+};
